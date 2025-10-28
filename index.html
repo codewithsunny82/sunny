@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sunny Kashyap | Futuristic Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Poppins',sans-serif;scroll-behavior:smooth;position:relative;transition:background 0.5s,color 0.5s;overflow-x:hidden;}
+  body.dark{background:#0a192f;color:#ccd6f6;}
+  body.light{background:#f5f5f5;color:#111;}
+
+  h1,h2,h3{font-family:'Orbitron',sans-serif;transition:color 0.5s;}
+  body.light h1,h2,h3{color:#0a192f;}
+
+  /* Dark mode headings neon-white fix */
+  body.dark h3{
+    color:#ffffff;
+    text-shadow:0 0 8px #ffffff;
+  }
+
+  header{background:rgba(255,255,255,0.05);padding:20px 40px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;backdrop-filter:blur(10px);z-index:10;transition:background 0.5s;}
+  body.light header{background:rgba(255,255,255,0.2);}
+  header h1{font-size:1.5rem;color:#64ffda;}
+  body.light header h1{color:#0a192f;}
+  nav a{color:#ccd6f6;margin:0 15px;text-decoration:none;font-weight:500;transition:color 0.3s;}
+  nav a:hover{color:#64ffda;}
+  body.light nav a{color:#111;}
+  body.light nav a:hover{color:#0a192f;}
+
+  section{padding:60px 40px;min-height:100vh;position:relative;transition:background 0.5s,color 0.5s;}
+  .home{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;}
+  .home h2{font-size:2.5rem;color:#64ffda;margin-bottom:10px;}
+  body.light .home h2{color:#0a192f;}
+  .home p{font-size:1.1rem;color:#ccd6f6;max-width:600px;}
+  body.light .home p{color:#333;}
+
+  .skills,.projects{background:rgba(255,255,255,0.05);border-radius:10px;padding:30px;margin-top:30px;transition:background 0.5s;}
+  body.light .skills, body.light .projects{background:rgba(0,0,0,0.05);}
+  h3{border-left:4px solid #64ffda;padding-left:10px;margin-bottom:20px;font-size:1.4rem;min-height:1.4em;overflow:hidden;}
+  body.light h3{border-left:4px solid #0a192f;}
+  .skills ul,.projects ul{list-style:none;line-height:1.8;color:#ccd6f6;transition:color 0.5s;}
+  body.light .skills ul, body.light .projects ul{color:#333;}
+
+  .projects ul li{background: rgba(10,25,47,0.6);padding:15px 20px;margin:10px 0;border-radius:10px;transition:transform 0.3s ease, box-shadow 0.3s ease,color 0.5s;color:#64ffda;}
+  .projects ul li:hover{transform:scale(1.05);box-shadow:0 0 15px #64ffda;}
+  body.light .projects ul li:hover{box-shadow:0 0 15px #0a192f;}
+
+  .contact ul{list-style:none;display:flex;flex-wrap:wrap;gap:25px;padding:0;}
+  .contact li{display:flex;align-items:center;gap:10px;transition:transform 0.3s;}
+  .contact li a{color:#ccd6f6;text-decoration:none;font-weight:bold;display:flex;align-items:center;gap:8px;transition:transform 0.3s,text-shadow 0.3s;}
+  .contact li a:hover{transform:scale(1.2);color:#64ffda;text-shadow:0 0 10px #64ffda;}
+  .contact img{width:30px;height:30px;object-fit:contain;border-radius:50%;}
+  body.light .contact li a{color:#0a192f;}
+  body.light .contact li a:hover{color:#0a192f;text-shadow:0 0 10px #0a192f;}
+
+  footer{text-align:center;padding:30px;background:rgba(255,255,255,0.05);font-size:0.9rem;color:#8892b0;transition:background 0.5s,color 0.5s;}
+  body.light footer{background:rgba(0,0,0,0.05);color:#555;}
+
+  #themeToggle{
+    position:fixed;top:20px;right:20px;width:50px;height:50px;border:none;border-radius:50%;cursor:pointer;
+    background:#64ffda;color:#0a192f;font-size:1.2rem;display:flex;align-items:center;justify-content:center;box-shadow:0 0 10px #64ffda;transition:all 0.3s;
+    z-index:20;
+  }
+  #themeToggle:hover{transform:scale(1.2);box-shadow:0 0 20px #64ffda;}
+  body.light #themeToggle{background:#0a192f;color:#64ffda;box-shadow:0 0 10px #0a192f;}
+  body.light #themeToggle:hover{box-shadow:0 0 20px #0a192f;}
+
+  @media(max-width:600px){
+    .contact ul{flex-direction:column;gap:15px;}
+    .contact li{font-size:0.9rem;}
+  }
+
+  #particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;}
+
+  /* Typewriter / Hacking style */
+  .hw-container{display:inline-block;white-space:nowrap;}
+  .hw-char{display:inline-block;min-width:0.35ch;opacity:1;}
+  .hw-cursor{
+    display:inline-block;
+    width:0.6ch;
+    margin-left:6px;
+    background:transparent;
+    border-left:2px solid;
+    animation:blink 0.9s steps(2) infinite;
+    vertical-align:middle;
+  }
+  @keyframes blink{
+    0%{opacity:1}
+    50%{opacity:0}
+    100%{opacity:1}
+  }
+
+  /* Small glitch flicker when dark/light */
+  .glitch-temp{opacity:0.9;transform:translateY(-2px);filter:blur(0.4px);}
+
+  /* ---------- PASSWORD OVERLAY STYLES ---------- */
+  .gate{
+    position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(180deg, rgba(2,6,23,0.95), rgba(2,6,23,0.9));
+    z-index:9999;color:#b8ffd9;backdrop-filter: blur(6px);padding:30px;
+  }
+  .gate-box{
+    width:min(720px,92%);border-radius:14px;padding:28px;background:linear-gradient(135deg, rgba(10,20,30,0.6), rgba(5,10,20,0.4));
+    box-shadow:0 10px 30px rgba(0,0,0,0.6), inset 0 0 40px rgba(100,255,218,0.03);
+    border:1px solid rgba(100,255,218,0.08);
+  }
+  .gate-title{font-family:'Orbitron',sans-serif;font-size:1.4rem;margin-bottom:8px;color:#9bffd9;}
+  .gate-sub{font-size:0.95rem;margin-bottom:18px;color:#9bd6c9;opacity:0.9;}
+  .pw-row{display:flex;gap:12px;align-items:center;}
+  .pw-row input[type="password"]{flex:1;padding:14px 16px;border-radius:10px;border:1px solid rgba(155,255,217,0.12);background:rgba(255,255,255,0.02);color:#ddfff0;font-size:1rem;outline:none;box-shadow:0 6px 18px rgba(0,0,0,0.5) inset;}
+  .pw-row input::placeholder{color:rgba(220,255,240,0.6);}
+  .pw-row button{padding:12px 18px;border-radius:10px;border:none;background:linear-gradient(90deg,#64ffda,#2ee6b6);color:#05262a;font-weight:700;cursor:pointer;font-size:0.95rem;box-shadow:0 6px 18px rgba(100,255,218,0.12);}
+  .hint{font-size:0.82rem;margin-top:10px;color:#bfeee0;opacity:0.85;}
+  .status{margin-top:14px;font-family:monospace;font-size:0.92rem;color:#bfffe7;min-height:1.2em;}
+
+  .decrypt-line{font-family:monospace;margin-top:16px;color:#9fffd4;opacity:0.85;min-height:1.2em;}
+  .attempts{font-size:0.8rem;margin-top:8px;color:#ffbaba;}
+
+  /* unlock animation */
+  .unlock-glow{position: absolute; inset:0; pointer-events:none; opacity:0; transition:opacity 0.6s;}
+  .gate.unlocked{animation:fadeOut 0.9s forwards 0.4s;}
+  @keyframes fadeOut{to{opacity:0;transform:translateY(-8px);visibility:hidden}}
+</style><!-- 🔥 ADDITION: Bigger cinematic password + centered decrypt button -->
+<style>
+.pw-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px; /* space between input & button */
+}
+
+/* Bigger password box */
+.pw-row input[type="password"] {
+  width: 85%;
+  max-width: 400px;
+  height: 60px;
+  font-size: 1.2rem;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  color: #64ffda;
+  letter-spacing: 1.2px;
+  transition: all 0.4s ease;
+  box-shadow: 0 0 15px rgba(100, 255, 218, 0.15);
+}
+
+.pw-row input[type="password"]:focus {
+  background: rgba(100, 255, 218, 0.15);
+  box-shadow: 0 0 25px rgba(100, 255, 218, 0.6), inset 0 0 10px rgba(100, 255, 218, 0.4);
+  transform: scale(1.03);
+}
+
+/* Cinematic DECRYPT button */
+.pw-row button {
+  width: 200px;
+  height: 52px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  color: #000;
+  background: linear-gradient(90deg, #64ffda, #29d3a9);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 0 18px rgba(100, 255, 218, 0.3);
+  transition: all 0.4s ease;
+}
+
+.pw-row button:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 30px rgba(100, 255, 218, 0.8), inset 0 0 12px rgba(100, 255, 218, 0.5);
+}
+
+.pw-row button:active {
+  transform: scale(0.95);
+  box-shadow: 0 0 15px rgba(100, 255, 218, 0.4);
+}
+</style>
+</head>
+<body class="dark">
+
+<canvas id="particles"></canvas>
+<button id="themeToggle" style="display:none">🌓</button>
+
+<header style="visibility:hidden;opacity:0;">
+  <h1>Sunny Kashyap</h1>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<!-- -------- PASSWORD GATE -------- -->
+<div class="gate" id="gate">
+  <div class="gate-box" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
+    <div class="gate-title" id="gateTitle">SECURE ACCESS • AUTHENTICATION</div>
+    <div class="gate-sub">Enter passphrase to decrypt the portfolio. This system uses a local client-side gate for demo purposes.</div>
+
+    <div class="pw-row">
+      <input id="pwInput" type="password" placeholder="Enter passphrase..." autocomplete="off" />
+      <button id="pwBtn" type="button">DECRYPT</button>
+    </div>
+
+    <div class="hint">Tip: This portfolio demo unlocks with a single passphrase.</div>
+    <div class="status" id="status">Awaiting input...</div>
+    <div class="decrypt-line" id="decLine"></div>
+    <div class="attempts" id="attempts"></div>
+    <div class="unlock-glow" id="unlockGlow"></div>
+  </div>
+</div>
+
+<!-- -------- PAGE CONTENT (hidden until unlocked) -------- -->
+<main id="siteContent" style="visibility:hidden;opacity:0;">
+  <section id="home" class="home">
+    <h2>Hi, I'm Sunny Kashyap 👋</h2>
+    <p>A tech enthusiast and future NDA cadet who loves innovation, design, and futuristic ideas.</p>
+  </section>
+
+  <section id="about">
+    <h3 data-hw="About Me">About Me</h3>
+    <p>Detail-oriented thinker passionate about technology, design, and practical logic. I create things that look good and work even better.</p>
+  </section>
+
+  <section id="skills">
+    <h3 data-hw="Skills">Skills</h3>
+    <div class="skills">
+      <ul>
+        <li>HTML5 / CSS3 / JavaScript</li>
+        <li>Basic UI/UX Design</li>
+        <li>Creative Thinking & Logic Building</li>
+        <li>Problem Solving & Focused Execution</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h3 data-hw="Projects">Projects</h3>
+    <div class="projects">
+      <ul>
+        <li>🔗 Futuristic Galaxy System (3D Solar Simulation)</li>
+        <li>💻 Realistic Hacking Interface Simulation</li>
+        <li>🌐 Personal Portfolio Website (this one!)</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h3 data-hw="Contact Me">Contact Me</h3>
+    <div class="contact">
+      <ul>
+        <li><a href="https://www.instagram.com/__the_soul_arcane?igsh=MWZtNTM2Zzg5YXdnbg==" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram">@__the_soul_arcane</a></li>
+        <li><a href="https://www.snapchat.com/add/soul.sunny?share_id=_ZRmvTf-3Nk&locale=en-IN" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c4/Snapchat_logo.svg/1200px-Snapchat_logo.svg.png" alt="Snapchat">soul.sunny</a></li>
+        <li><a href="mailto:sunnykashyap@example.com"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Mail_%28iOS%29.svg" alt="Email">sunnykashyap@example.com</a></li>
+        <li><a href="https://github.com/sunnykashyap" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub">github.com/sunnykashyap</a></li>
+        <li><a href="https://www.youtube.com/@sunnykashyap" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" alt="YouTube">@sunnykashyap</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>© 2025 Sunny Kashyap | Designed by Sunny bro 😎</footer>
+</main>
+
+<script>
+/* =========================
+   Helper: Random / Sleep
+   ========================= */
+function random(min,max){return Math.random()*(max-min)+min;}
+function sleep(ms){return new Promise(res=>setTimeout(res,ms));}
+
+/* =========================
+   Particle background (simple)
+   ========================= */
+const canvas=document.getElementById('particles');
+const ctx=canvas.getContext('2d');
+let w=canvas.width=window.innerWidth, h=canvas.height=window.innerHeight;
+const particles=[];
+const particleCount=80;
+class Particle{constructor(){this.x=random(0,w);this.y=random(0,h);this.r=random(0.6,2.5);this.vx=random(-0.3,0.3);this.vy=random(-0.3,0.3);} draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.fillStyle='rgba(100,255,218,0.07)';ctx.fill();} update(){this.x+=this.vx;this.y+=this.vy;if(this.x>w)this.x=0;if(this.x<0)this.x=w;if(this.y>h)this.y=0;if(this.y<0)this.y=h;this.draw();}}
+for(let i=0;i<particleCount;i++)particles.push(new Particle());
+function animateParticles(){ctx.clearRect(0,0,w,h);particles.forEach(p=>p.update());requestAnimationFrame(animateParticles);}
+animateParticles();
+window.addEventListener('resize',()=>{w=canvas.width=window.innerWidth;h=canvas.height=window.innerHeight;});
+
+/* =========================
+   PASSWORD GATE BEHAVIOR
+   ========================= */
+const gate = document.getElementById('gate');
+const pwInput = document.getElementById('pwInput');
+const pwBtn = document.getElementById('pwBtn');
+const status = document.getElementById('status');
+const decLine = document.getElementById('decLine');
+const attemptsEl = document.getElementById('attempts');
+const unlockGlow = document.getElementById('unlockGlow');
+const siteContent = document.getElementById('siteContent');
+const themeToggle = document.getElementById('themeToggle');
+let attempts = 0;
+const PASS = 'sunny'; // <-- the passphrase (case-sensitive) — change if you want
+
+pwInput.focus();
+
+function setStatus(text){ status.textContent = text; }
+function setDecLine(text){ decLine.textContent = text; }
+function setAttempts(){ attemptsEl.textContent = attempts>0 ? `Attempts: ${attempts}` : ''; }
+
+/* fake decrypt animation using random chars */
+const HACK_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:',.<>/?";
+function randChar(){ return HACK_CHARS.charAt(Math.floor(Math.random()*HACK_CHARS.length)); }
+
+async function fakeDecrypt(finalText, rounds=18){
+  setAttempts();
+  for(let r=0;r<rounds;r++){
+    // compose a "noisy" string with random chars and some revealed letters
+    let s='';
+    for(let i=0;i<finalText.length;i++){
+      if(Math.random() < (r/rounds)) s += finalText[i];
+      else s += randChar();
+    }
+    setDecLine(s);
+    await sleep(28 + Math.random()*40);
+  }
+  setDecLine(finalText);
+}
+
+/* unlock sequence */
+async function unlockSequence(){
+  gate.classList.add('unlocked');
+  unlockGlow.style.opacity = 1;
+  setStatus('Decryption success. Welcome, Sunny.');
+  // small glow pulse
+  unlockGlow.style.background = 'radial-gradient(circle at 50% 40%, rgba(100,255,218,0.16), transparent 30%)';
+  await sleep(500);
+  // show site content
+  siteContent.style.visibility = 'visible';
+  siteContent.style.opacity = '1';
+  // show header and theme toggle
+  document.querySelector('header').style.visibility = 'visible';
+  document.querySelector('header').style.opacity = '1';
+  themeToggle.style.display = 'block';
+  // remove gate after animation
+  await sleep(850);
+  gate.remove();
+  // initialize the site scripts that were waiting for unlock
+  initSite();
+}
+
+/* handle password submission */
+async function submitPw(){
+  const val = pwInput.value || '';
+  pwInput.value = '';
+  attempts++;
+  setAttempts();
+  setStatus('Attempting decryption...');
+  // small fake network delay
+  await sleep(350 + Math.random()*400);
+
+  // quick visual: show some decrypt flicker
+  await fakeDecrypt(val, 12);
+
+  if(val === PASS){
+    // correct
+    await sleep(200);
+    unlockSequence();
+  } else {
+    // wrong
+    setStatus('Passphrase rejected. Try again.');
+    // small shake effect
+    const box = document.querySelector('.gate-box');
+    box.style.transition = 'transform 0.12s';
+    box.style.transform = 'translateX(-6px)';
+    setTimeout(()=>box.style.transform='translateX(6px)',120);
+    setTimeout(()=>box.style.transform='translateX(0)',240);
+    // increase deterrence text if many attempts
+    if(attempts>=5) setStatus('Multiple failed attempts detected. Are you sure you remember the passphrase?');
+  }
+}
+
+/* bind events */
+pwBtn.addEventListener('click', submitPw);
+pwInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter') submitPw(); });
+
+/* =========================
+   SITE INIT (runs AFTER unlock)
+   - This contains rest of your original logic:
+     particle tweaks, theme toggle, and hacking-typewriter initialization
+   ========================= */
+async function initSite(){
+  // theme toggle logic
+  const themeToggleBtn = document.getElementById('themeToggle');
+  const bodyEl = document.body;
+  if(localStorage.getItem('theme')==='light'){ bodyEl.classList.remove('dark'); bodyEl.classList.add('light'); }
+  themeToggleBtn.addEventListener('click', ()=>{
+    bodyEl.classList.toggle('dark');
+    bodyEl.classList.toggle('light');
+    if(bodyEl.classList.contains('light')) localStorage.setItem('theme','light');
+    else localStorage.setItem('theme','dark');
+  });
+  themeToggleBtn.style.display = 'block';
+
+  /* ---------------------------
+     Hacking-style Typewriter
+     (original code, but only runs now)
+     --------------------------- */
+  function randCharSmall(){ return HACK_CHARS.charAt(Math.floor(Math.random()*HACK_CHARS.length)); }
+
+  async function typeCharSequence(container, finalChar, minFlash=1, maxFlash=3){
+    const flashCount = Math.floor(Math.random()*(maxFlash-minFlash+1))+minFlash;
+    for(let f=0; f<flashCount; f++){
+      container.textContent = randCharSmall();
+      container.classList.add('glitch-temp');
+      await sleep(30 + Math.random()*70);
+    }
+    container.classList.remove('glitch-temp');
+    container.textContent = finalChar;
+  }
+
+  async function typeWrite(element, text){
+    element.textContent = ''; // clear
+    const wrapper = document.createElement('span');
+    wrapper.className = 'hw-container';
+    element.appendChild(wrapper);
+
+    // create cursor
+    const cursor = document.createElement('span');
+    cursor.className = 'hw-cursor';
+    cursor.setAttribute('aria-hidden','true');
+
+    // type each char
+    for(let i=0;i<text.length;i++){
+      const ch = text[i];
+      const chSpan = document.createElement('span');
+      chSpan.className = 'hw-char';
+      chSpan.textContent = ''; // start empty
+      wrapper.appendChild(chSpan);
+
+      // add a tiny randomized delay before typing this character
+      await sleep(40 + Math.random()*120);
+
+      // for spaces, just put space without glitch
+      if(ch === ' '){
+        chSpan.textContent = '\u00A0';
+      } else {
+        const maxFlash = (Math.random() > 0.9) ? 5 : 2;
+        await typeCharSequence(chSpan, ch, 1, maxFlash);
+      }
+    }
+
+    // append cursor and keep it for a bit then remove blink optionally
+    element.appendChild(cursor);
+    await sleep(500 + Math.random()*800);
+    cursor.remove();
+  }
+
+  // Setup h3 elements for observer-driven typing
+  const h3s = document.querySelectorAll('h3[data-hw]');
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        const el = entry.target;
+        if(!el.dataset.typed){
+          const text = el.dataset.hw || el.textContent.trim();
+          typeWrite(el, text).catch(e=>console.error(e));
+          el.dataset.typed = "true";
+        }
+        obs.unobserve(el);
+      }
+    });
+  },{threshold: 0.5});
+
+  h3s.forEach(h3=>{
+    h3.dataset.hw = h3.dataset.hw || h3.textContent.trim();
+    h3.textContent = '';
+    observer.observe(h3);
+  });
+
+  // ensure visible ones on load type immediately
+  window.addEventListener('load', ()=>{
+    h3s.forEach(h3=>{
+      const rect = h3.getBoundingClientRect();
+      if(rect.top < window.innerHeight && rect.bottom > 0 && !h3.dataset.typed){
+        observer.unobserve(h3);
+        typeWrite(h3, h3.dataset.hw).then(()=>h3.dataset.typed='true').catch(()=>{});
+      }
+    });
+  });
+
+  // small flourish: welcome to console
+  console.log('%cDECRYPTION COMPLETE — WELCOME, SUNNY', 'color:#64ffda;font-weight:700;font-family:Orbitron, monospace;');
+}
+
+/* If you want to allow immediate unlock if user previously unlocked in this session,
+   you could store a session flag in sessionStorage/localStorage. For demo, we always require it. */
+
+</script>
+
+</body>
+</html>
